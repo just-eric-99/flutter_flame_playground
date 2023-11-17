@@ -55,7 +55,6 @@ class MainGame extends FlameGame with HasGameRef, DragCallbacks {
         flameIsometric.tileMapTmx.layers.whereType<ObjectGroup>();
     print(objectGroup);
 
-    // final coins = await Flame.images.load('coins.png');
     final building = await Flame.images.load('building2.png');
 
     const buildingSize = 400.0;
@@ -68,15 +67,6 @@ class MainGame extends FlameGame with HasGameRef, DragCallbacks {
           var isoX = -cartY + cartX;
           var isoY = (cartX + cartY) / 2;
 
-          // spriteComponents.add(
-          //   SpriteComponent(
-          //     size: Vector2.all(buildingSize),
-          //     position: Vector2(isoX, isoY) +
-          //         (initialPosition - Vector2(widthPerTile * 8, buildingSize)),
-          //     sprite: Sprite(building),
-          //   ),
-          // );
-
           tappableSpriteComponents.add(
             TappableSpriteComponent(
               name: object.name,
@@ -88,9 +78,6 @@ class MainGame extends FlameGame with HasGameRef, DragCallbacks {
         }
       }
     }
-    // for (var i = 0; i < spriteComponents.length; i++) {
-    //   add(spriteComponents[i]);
-    // }
 
     for (var i = 0; i < tappableSpriteComponents.length; i++) {
       add(tappableSpriteComponents[i]);
@@ -113,16 +100,9 @@ class MainGame extends FlameGame with HasGameRef, DragCallbacks {
   void onDragUpdate(DragUpdateEvent event) {
     super.onDragUpdate(event);
     for (var tileMap in tileMapComponents) {
-      // tileMap.position.y += event.delta.y / 2;
       tileMap.position += event.delta / 2;
     }
-    // for (var sprite in spriteComponents) {
-    //   // sprite.position.y += event.delta.y / 2;
-    //   sprite.position += event.delta / 2;
-    // }
-
     for (var tappableSprite in tappableSpriteComponents) {
-      // tappableSprite.position.y += event.delta.y / 2;
       tappableSprite.position += event.delta / 2;
     }
   }
@@ -132,17 +112,10 @@ class MainGame extends FlameGame with HasGameRef, DragCallbacks {
     super.update(dt);
 
     for (var tileMap in tileMapComponents) {
-      // tileMap.position.y += velocity.y * dt / 3;
       tileMap.position += velocity * dt;
     }
 
-    // for (var sprite in spriteComponents) {
-    //   // sprite.position.y += velocity.y * dt / 3;
-    //   sprite.position += velocity * dt;
-    // }
-
     for (var tappableSprite in tappableSpriteComponents) {
-      // tappableSprite.position.y += velocity.y * dt / 3;
       tappableSprite.position += velocity * dt;
     }
 
@@ -166,7 +139,7 @@ class MainGame extends FlameGame with HasGameRef, DragCallbacks {
 }
 
 class TappableSpriteComponent extends SpriteComponent with TapCallbacks {
-  final name;
+  final String name;
 
   TappableSpriteComponent({
     required this.name,
@@ -180,7 +153,7 @@ class TappableSpriteComponent extends SpriteComponent with TapCallbacks {
         );
   @override
   void onTapDown(TapDownEvent event) {
-    print('tapped ${name ?? 'no name'}');
+    print('tapped $name');
     super.onTapDown(event);
   }
 }
